@@ -1,0 +1,43 @@
+div.hero-body {
+    background-image: url('../images/main_screen.jpeg');
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    background-size: 100% 100%;
+}
+
+
+div.hangman {
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 275px;
+}
+
+div.hangman.misses0 {
+    background-image: url('../images/hangman00.png');
+}
+
+div.hangman.misses1 {
+    background-image: url('../images/hangman01.png');
+}
+
+div.hangman.misses2 {
+    background-image: url('../images/hangman02.png');
+}
+
+div.hangman.misses3 {
+    background-image: url('../images/hangman03.png');
+}
+
+div.hangman.misses4 {
+    background-image: url('../images/hangman04.png');
+}
+
+div.hangman.misses5 {
+    background-image: url('../images/hangman05.png');
+}
+
+div.game_container {
+    height: 50%;
+    width: 50%;
+  }
+
