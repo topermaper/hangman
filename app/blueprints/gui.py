@@ -39,7 +39,10 @@ def play():
             db.session.add(hangman)
             db.session.commit()
         else:
-            flash("Your guess is unaceptable: " + ", ".join(form.guess_character.errors), 'is-danger')
+            flash("We can not validate your guess:", 'is-danger')
+            for fieldName, errorMessages in form.errors.items():
+                for errorMessage in errorMessages:
+                    flash("{} - {}".format(fieldName,errorMessage), 'is-danger')
 
         return render_template('play.html', hangman=hangman, form=form)
         
