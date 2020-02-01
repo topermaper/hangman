@@ -77,7 +77,7 @@ class Games(Resource):
         if g.user.id != game.user_id:
             abort(401)
 
-        return jsonify({ "id":game.id, "secret_word": game.secret_word, "score" : game.score, "multiplier" :game.multiplier, "user_guess" : game.get_user_guess(), "misses" : game.misses, "status":game.status})
+        return jsonify({ "id":game.id, "secret_word": game.secret_word, "score" : game.score, "multiplier" :game.multiplier, "user_guess" : game.user_guess_list, "misses" : game.misses, "status":game.status})
 
     @auth.login_required
     def post(self):
@@ -116,9 +116,9 @@ class Games(Resource):
         db.session.add(game)
         db.session.commit()
 
-        # Resource Patched
-        res = make_response(jsonify({ 'message' : 'Game was updated' }), 204)
-        return res
+        # Return resource Patched
+        return jsonify({ "id":game.id, "secret_word": game.secret_word, "score" : game.score, "multiplier" :game.multiplier, "user_guess" : game.user_guess_list, "misses" : game.misses, "status":game.status})
+
 
 class Token(Resource):
     @auth.login_required

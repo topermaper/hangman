@@ -5,35 +5,38 @@ div.hero-body {
     background-size: 100% 100%;
 }
 
+div.opacity {
+    opacity: 0.4;
+}
 
-div.hangman {
+img.hangman {
     background-size: contain;
     background-repeat: no-repeat;
     height: 275px;
 }
 
-div.hangman.misses0 {
-    background-image: url('../images/hangman00.png');
+img.hangman.misses0 {
+    content: url('../images/hangman00.png');
 }
 
-div.hangman.misses1 {
-    background-image: url('../images/hangman01.png');
+img.hangman.misses1 {
+    content: url('../images/hangman01.png');
 }
 
-div.hangman.misses2 {
-    background-image: url('../images/hangman02.png');
+img.hangman.misses2 {
+    content: url('../images/hangman02.png');
 }
 
-div.hangman.misses3 {
-    background-image: url('../images/hangman03.png');
+img.hangman.misses3 {
+    content: url('../images/hangman03.png');
 }
 
-div.hangman.misses4 {
-    background-image: url('../images/hangman04.png');
+img.hangman.misses4 {
+    content: url('../images/hangman04.png');
 }
 
-div.hangman.misses5 {
-    background-image: url('../images/hangman05.png');
+img.hangman.misses5 {
+    content: url('../images/hangman05.png');
 }
 
 div.game_container {

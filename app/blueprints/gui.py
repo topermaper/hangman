@@ -25,9 +25,7 @@ def play():
     
     if request.method == 'POST':
         if form.validate_on_submit():
-            user_guess_list = hangman.get_user_guess()
-            user_guess_list.append(form.guess_character.data)
-            hangman.set_user_guess(user_guess_list)
+            hangman.set_user_guess(form.guess_character.data)
  
             form.guess_character.data=''
 
