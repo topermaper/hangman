@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager 
+from flask_login import LoginManager
+from flask_jwt_extended import JWTManager
 
 # Start Flask app
 app = Flask(__name__)
@@ -25,14 +26,16 @@ app.register_blueprint(gui)
 from app.blueprints.auth import auth
 app.register_blueprint(auth)
 
-# import API
-from app.api.api import api, Users, Games, Token
+# Import JWT
+jwt = JWTManager(app)
 
+# import API
+from app.api.api import api, Users, Games, Token, Login
 api.prefix = app.config["BASE_API_URL"]
-#api.add_resource(Tasks, "/tasks/<string:todo_id>")
 api.add_resource(Users, "/users", "/users/<int:id>")
 api.add_resource(Games, "/games", "/games/<int:id>")
 api.add_resource(Token, "/token")
+api.add_resource(Login, '/login')
 api.init_app(app)
 
 # Build DB
