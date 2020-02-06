@@ -13,11 +13,13 @@ def home():
     return render_template('home.html')
 
 @gui.route('/halloffame')
+@login_required
 def halloffame():
     games = db.session.query(Game, User).filter(User.id == Hangman.user_id, Game.status=='WON').order_by(desc(Game.score)).limit(10)
     return render_template('halloffame.html',games=games)
 
 @gui.route('/play',methods=['GET','POST'])
+@login_required
 def play():
     form = GameForm()
 
