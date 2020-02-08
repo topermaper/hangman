@@ -3,7 +3,8 @@ import os
 class BaseConfig(object):
     #Flask Configuration
     # SECRET KEY to be set as environment variable
-    SECRET_KEY = os.environ.get('SECRET_KEY','default_key')
+    SECRET_KEY = os.environ.get('SECRET_KEY',os.urandom(64))
+    JWT_SECRET_KEY = os.environ.get('SECRET_KEY',os.urandom(64))
     DEBUG = True
     TESTING = False
     SQLALCHEMY_TRACK_MODIFICATIONS=False
@@ -22,6 +23,7 @@ class ProductionConfig(BaseConfig):
     TOKEN_EXPIRATION = 600
     # SECRET KEY to be set as environment variable
     SECRET_KEY = os.environ.get('SECRET_KEY')
+    SECRET_KEY = os.environ.get('JWT_SECRET_KEY')
 
 class DevelopmentConfig(BaseConfig):
     ENV= 'development'

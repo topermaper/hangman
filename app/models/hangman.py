@@ -5,29 +5,54 @@ from collections import OrderedDict
 
 class Hangman(Game):
 
+    @property
+    def user_guess_set(self):
+        return set(self.user_guess)
+    
+    @property
+    def user_guess_list(self):
+        return list(self.user_guess)
+
     def __init__(self, user_id):
         super().__init__(user_id)
 
-    def validate_user_guess(self, new_user_guess):
-        # This only accepts the same string plus one character
-        if new_user_guess[:-1] != self.get_user_guess():
-            return False
+    # Accepts either a single guess character or full list with all guesses
+    def get_valid_user_guess(self, new_user_guess):
 
-        # Last character is the last guess, check if already there
-        if new_user_guess[-1] in self.get_user_guess():
-            return False
+        # It's a list, we extract to new guess character using sets
+        if isinstance(new_user_guess, list):
+            new_set = set(new_user_guess)
+            diff = new_set.difference(self.user_guess_set)
 
-        return True
+            if not (new_set.issuperset(self.user_guess_set) and len(diff) == 1):
+                return None
 
-    # Main method, new_user_guess has to be a list
+            new_user_guess = diff.pop()
+
+        elif isinstance(new_user_guess, str):
+            # Guess already attempted
+            if new_user_guess in self.user_guess_set:
+                return None
+
+        # The new user guess should be a single character
+        if len(new_user_guess) != 1:
+            return None
+
+        return new_user_guess
+
+    # Main method, new_user_guess. Accepts either list or string
     def set_user_guess(self, new_user_guess):
 
-        if not self.validate_user_guess(new_user_guess):
+        guess_character = self.get_valid_user_guess(new_user_guess)
+
+        # new_user_guess is not valid, cancel the operation
+        if guess_character == None:
             return False
 
-        self.user_guess = ''.join(new_user_guess)
+        # Guess is valid, add guess character
+        self.user_guess += guess_character
 
-        if new_user_guess[-1] not in self.secret_word:
+        if guess_character not in self.secret_word:
             self.misses += 1
             self.update_user_score(False)
         else:
@@ -62,9 +87,6 @@ class Hangman(Game):
         # Game is still ACTIVE
         else:
             self.status = 'ACTIVE'
-
-    def get_user_guess(self):
-        return list(self.user_guess)
 
     def get_word_mask(self):
         word_mask = []
